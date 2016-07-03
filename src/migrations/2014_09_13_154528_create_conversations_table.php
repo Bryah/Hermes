@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConversationsTable extends \Triggerdesign\Hermes\BaseMigration {
+class CreateConversationsTable extends \Bryah\Hermes\BaseMigration {
 
 	/**
 	 * Run the migrations.

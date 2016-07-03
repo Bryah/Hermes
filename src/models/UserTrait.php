@@ -1,6 +1,6 @@
 <?php
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
 
 trait UserTrait {
@@ -13,12 +13,12 @@ trait UserTrait {
     {
         return $this->belongsToMany(EloquentBase::modelPath('Conversation'), EloquentBase::tableName('conversation_user'))->withTimestamps()->orderBy('updated_at', 'desc');
     }
-    
+
 	public function messageStates()
     {
         return $this->hasMany(EloquentBase::modelPath('MessageState'))->orderBy('updated_at', 'desc');
     }
-    
+
     public function unreadMessageStates(){
     	return $this->messageStates()->where('state', '=', 0)->orderBy('updated_at', 'desc')->get();
     }
@@ -30,42 +30,42 @@ trait UserTrait {
     public function hasUnreadMessages(){
         return $this->unreadMessagesCount() > 0;
     }
-    
+
     public function unreadConversations(){
     	//TODO: Do this using Eloquent
     	$unreadConversations = array();
     	foreach($this->unreadMessages() as $unreadMessage){
     		$unreadConversation = $unreadMessage->conversation;
     		$conversationId = $unreadConversation->id;
-    		 
+
     		if(isset($unreadConversations[$conversationId])) continue;
-    		 
+
     		$unreadConversations[$conversationId] = $unreadConversation;
     	}
-      	return $unreadConversations;    	 
+      	return $unreadConversations;
     }
 
-    public function unreadMessages(){ 	
+    public function unreadMessages(){
     	return $this->findMessages('unread');
     }
-    
+
     public function findMessages($state = false){
     	$user_id = $this->id;
-    	 
+
     	$unreadMessages = Message::whereHas('messageStates', function($q) use( &$user_id, &$state)
     	{
     		$q->where('user_id', '=', $user_id);
-    		
+
     		if($state)
     		$q->where('state', '=', MessageState::indexOf($state));
-    		 
+
     	})->with('conversation')->get();
-    	 
+
     	return $unreadMessages;
     }
-    
-   
-    
-    
-    
+
+
+
+
+
 }

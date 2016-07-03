@@ -1,14 +1,14 @@
 <?php
 /**
  * Project: Luxus Point | ConversationManager.php
- * User: Simon - triggerdesign.de
+ * User: Simon - Bryah.de
  * Date: 14.09.14
  * Time: 21:50
  */
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
-use Triggerdesign\Hermes\Models\Conversation as HermesConversation;
+use Bryah\Hermes\Models\Conversation as HermesConversation;
 
 //The facade stuff is in here ;)
 class ConversationManager {
@@ -16,7 +16,7 @@ class ConversationManager {
     /**
      * @param array $user_ids
      * @param array $arguments
-     * @param bool $forceNew If set to true it will not search for existing 
+     * @param bool $forceNew If set to true it will not search for existing
      * @return Conversation
      */
     public function startConversation(array $user_ids, array $arguments = array(), $forceNew = false){
@@ -47,19 +47,19 @@ class ConversationManager {
 
 
     public function findConversations(array $user_ids, array $arguments = array(), $limit = 1){
-        //TODO: Do this using eloquent    
-        
+        //TODO: Do this using eloquent
+
     	if(!is_array($user_ids) || count($user_ids) < 2){
     		throw new \Exception('You need at least 2 users for a conversation', 1410783987);
     	}
-    	
-    	//Get all conversations of the first user and check if 
+
+    	//Get all conversations of the first user and check if
     	//the other users are in these conversations too.
     	$userClass = EloquentBase::userClass();
 
         $firstUser = $userClass::find($user_ids[0]);
-        $conversations = $firstUser->conversations()->with('users')->get();   
-               
+        $conversations = $firstUser->conversations()->with('users')->get();
+
         $filteredConversations = array();
 
         foreach($conversations as $conversation){
@@ -74,9 +74,9 @@ class ConversationManager {
                     break;
                 }
             }
-            
-            
-            
+
+
+
 
             if(!$argumentsFitting) continue;
 
@@ -96,7 +96,7 @@ class ConversationManager {
             if(count($filteredConversations) == $limit)
                 break;
         }
-        
+
 
         return $filteredConversations;
 
@@ -107,4 +107,4 @@ class ConversationManager {
         return $this->findConversations(array($user_id1, $user_id2));
     }
 
-} 
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Triggerdesign\Hermes;
+namespace Bryah\Hermes;
 
 use Config;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,10 +20,10 @@ class BaseMigration extends Migration {
 
         return $usersTableConfig;
     }
-    
+
     protected function useForeignKeys(){
     	$useForeignKeys = Config::get('hermes.useForeignKeys', false);
-    	
+
     	return $useForeignKeys;
     }
 

@@ -6,14 +6,14 @@
  * Time: 17:40
  */
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
 
 
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Triggerdesign\Hermes\Classes\MessageGroup;
+use Bryah\Hermes\Classes\MessageGroup;
 
 class Conversation extends EloquentBase {
 

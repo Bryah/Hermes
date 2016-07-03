@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -65,7 +65,7 @@ class Message extends EloquentBase{
     }
 
     public function doDelete(Model $byUser = null){
-        return $this->changeState('delete', $byUser);
+        return $this->changeState('deleted', $byUser);
     }
 
     public function isRead(Model $byUser = null){

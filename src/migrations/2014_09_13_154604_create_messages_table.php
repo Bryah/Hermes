@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessagesTable extends \Triggerdesign\Hermes\BaseMigration {
+class CreateMessagesTable extends \Bryah\Hermes\BaseMigration {
 
 	/**
 	 * Run the migrations.
@@ -18,16 +18,16 @@ class CreateMessagesTable extends \Triggerdesign\Hermes\BaseMigration {
 
 			//Has to be nullable so we dont get an 1452 sql error, when users allready exist
             $table->integer('user_id')->unsigned()->nullable();
-                
-            	
+
+
 
             $table->integer('conversation_id')->unsigned();
-            
+
             if($this->useForeignKeys()){
             	$table->foreign('user_id')->references('id')->on($this->usersTable());
-            	$table->foreign('conversation_id')->references('id')->on($this->tableName('conversations'));	
+            	$table->foreign('conversation_id')->references('id')->on($this->tableName('conversations'));
             }
-            	
+
             $table->text('content');
 
             $table->softDeletes();

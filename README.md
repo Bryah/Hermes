@@ -35,7 +35,7 @@ Then we have three MessageStates for this new message:
 ```Javascript
     "require": {
         ...
-        "triggerdesign/hermes": "2.*"
+        "bryah/hermes": "2.*"
         }
 ```
 
@@ -43,7 +43,7 @@ Then we have three MessageStates for this new message:
 ```Javascript
     "require": {
         ...
-        "triggerdesign/hermes": "1.0"
+        "bryah/hermes": "1.0"
         }
 ```
 
@@ -53,12 +53,12 @@ Run a **composer update**.
 ```PHP
 	'providers' => array(
 	    ...
-        \Triggerdesign\Hermes\HermesServiceProvider::class
+        \Bryah\Hermes\HermesServiceProvider::class
 	);
 	...
 	'aliases' => array(
 	    ...
-        'Messaging' => Triggerdesign\Hermes\Facades\Messaging::class
+        'Messaging' => Bryah\Hermes\Facades\Messaging::class
    );
 ```
 
@@ -71,12 +71,12 @@ Run a **composer update**.
 
 Now you have the 4 tables that we need for user conversations.
 
-### Step 4: Use the user trait 
+### Step 4: Use the user trait
 You should use a trait inside your **User model**:
 ```PHP
 <?php
 
-use Triggerdesign\Hermes\Models\UserTrait as HermesTrait;
+use Bryah\Hermes\Models\UserTrait as HermesTrait;
 ...
 
 class User extends BaseModel implements ConfideUserInterface
@@ -93,7 +93,7 @@ Start a converstion between user with the ID 1 and the user with the ID 2. If th
 ```PHP
     //This will start a new conversation between user 1 and 2 or find an existing one
     $conversation = Messaging::startConversation([1,2]);
-    
+
     //or try to find one on your own
     $conversation =  Messagging::findConversations($user_ids, $arguments, $limit);
 ```
@@ -102,15 +102,15 @@ Now you have access to these functions and attributes:
 ```PHP
     //All messages in one conversation
     $conversation->messages;
-    
+
     //Add a message
     $conversation->addMessage($content);
-    
+
     $conversation->addUser($user);
-    
+
     $conversation->latestMessage();
     $conversation->unreadMessages();
-    
+
     $conversation->isUnread(); //conversation has unread messages
     $conversation->doRead(); //call this after a user has read his messages
 ```
@@ -118,11 +118,11 @@ Now you have access to these functions and attributes:
 You can also have groups of messages like in facebook. Several messages are collected into a group of messages, if they is not too much time in between and if they are all from one sender.
 
 ```PHP
-    //Build an array of \Triggerdesign\Hermes\Classes\MessageGroup
+    //Build an array of \Bryah\Hermes\Classes\MessageGroup
     $messageGroups = $conversation->buildGroups();
-    
+
     ...
-    
+
     //now you can iterate throgh these groups and buld your own messenger
     @foreach($messageGroups as $messageGroup)
         <b>{{ $messageGroup->getUser()->name }}: @ {{ $messageGroup->getStart()->format('d.m.Y H:i:s');  }}</b>
@@ -130,7 +130,7 @@ You can also have groups of messages like in facebook. Several messages are coll
             <p>{{ nl2br($message->content)  }}</p>
         @endforeach
     @endforeach
-    
+
 ```
 
 
@@ -140,15 +140,15 @@ The trait allows you to use these functions:
 
 ```PHP
 	//All conversations that this user is a member of
-	$user->conversations(); 
-	
+	$user->conversations();
+
 	//How many messages are unread
 	$user->unreadMessagesCount();
 	$user->hasUnreadMessages();
-	
+
 	//Get all unread conversations
 	$user->unreadConversations();
-	
+
 	//Get all unread conversations inside all the unread conversations
 	$user->unreadMessages();
 ```

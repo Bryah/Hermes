@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
 
 
@@ -23,10 +23,10 @@ class MessageState extends EloquentBase {
         $states = static::$states;
 
         $indexResult = array_search($key, $states);
-        
+
         if($indexResult === FALSE)
         	throw new \Exception('Message state ' . $key . ' is unknown.');
-        else 
+        else
         	return $indexResult;
     }
 
@@ -45,4 +45,4 @@ class MessageState extends EloquentBase {
 
 
 
-} 
+}

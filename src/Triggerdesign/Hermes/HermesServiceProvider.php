@@ -1,4 +1,4 @@
-<?php namespace Triggerdesign\Hermes;
+<?php namespace Bryah\Hermes;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +20,7 @@ class HermesServiceProvider extends ServiceProvider {
 	{
         app()->bind('messaging', function()
         {
-            return new \Triggerdesign\Hermes\Models\ConversationManager;
+            return new \Bryah\Hermes\Models\ConversationManager;
         });
 
         $this->publishes([

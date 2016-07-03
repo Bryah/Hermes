@@ -6,7 +6,7 @@
  * Time: 18:06
  */
 
-namespace Triggerdesign\Hermes\Models;
+namespace Bryah\Hermes\Models;
 
 
 class EloquentBase extends \Eloquent {
@@ -21,23 +21,23 @@ class EloquentBase extends \Eloquent {
     public static function tableName($name){
     	if($name == 'users'){
     		return \Config::get('hermes.usersTable', 'users');
-    	}    	
-    	
+    	}
+
         $prefix = \Config::get('hermes.tablePrefix', '');
 
-      
-        
+
+
         return $prefix . $name;
     }
-    
+
     public static function modelPath($classname){
-    	//This function is used so a developer can decide if he wants to extend 
+    	//This function is used so a developer can decide if he wants to extend
     	//his own models or if he wants to use the original hermes models only
-    	
-    	if(class_exists($classname) )    	
+
+    	if(class_exists($classname) )
     		return $classname;
     	else
-    		return "\\Triggerdesign\\Hermes\\Models\\" . $classname;
+    		return "\\Bryah\\Hermes\\Models\\" . $classname;
     }
 
 
@@ -58,4 +58,4 @@ class EloquentBase extends \Eloquent {
 
         return $user;
     }
-} 
+}
