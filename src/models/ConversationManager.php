@@ -64,42 +64,37 @@ class ConversationManager {
 
         foreach($conversations as $conversation){
 
-            if(count($conversation->users) != count($user_ids))
-                return false;
+            if(count($conversation->users) != count($user_ids)) {
 
-            $argumentsFitting = true;
-            foreach($arguments as $column => $value){
-                if($conversation->$column != $value){
-                    $argumentsFitting = false;
-                    break;
-                }
-            }
-
-
-
-
-            if(!$argumentsFitting) continue;
-
-            $usersFitting = true;
-            foreach($conversation->users as $convUser){
-                if(!in_array($convUser->id, $user_ids)){
-                    $usersFitting = false;
-                    break;
+                $argumentsFitting = true;
+                foreach($arguments as $column => $value){
+                    if($conversation->$column != $value){
+                        $argumentsFitting = false;
+                        break;
+                    }
                 }
 
+                if(!$argumentsFitting) continue;
+
+                $usersFitting = true;
+                foreach($conversation->users as $convUser){
+                    if(!in_array($convUser->id, $user_ids)){
+                        $usersFitting = false;
+                        break;
+                    }
+
+                }
+
+                if(!$usersFitting) continue;
+
+                $filteredConversations[] = $conversation;
+
+                if(count($filteredConversations) == $limit)
+                    break;
             }
-
-            if(!$usersFitting) continue;
-
-            $filteredConversations[] = $conversation;
-
-            if(count($filteredConversations) == $limit)
-                break;
         }
 
-
         return $filteredConversations;
-
 
     }
 
