@@ -49,22 +49,22 @@ class ConversationManager {
     public function findConversations(array $user_ids, array $arguments = array(), $limit = 1){
         //TODO: Do this using eloquent
 
-    	if(!is_array($user_ids) || count($user_ids) < 2){
-    		throw new \Exception('You need at least 2 users for a conversation', 1410783987);
-    	}
+        if(!is_array($user_ids) || count($user_ids) < 2){
+                throw new \Exception('You need at least 2 users for a conversation', 1410783987);
+        }
 
-    	//Get all conversations of the first user and check if
-    	//the other users are in these conversations too.
-    	$userClass = EloquentBase::userClass();
+        //Get all conversations of the first user and check if
+        //the other users are in these conversations too.
+        $userClass = EloquentBase::userClass();
 
         $firstUser = $userClass::find($user_ids[0]);
-        $conversations = $firstUser->conversations()->with('users')->get();
+        $conversations = $firstUser->conversations()->with('users')->with('messages')->get();
 
         $filteredConversations = array();
 
         foreach($conversations as $conversation){
 
-            if(count($conversation->users) != count($user_ids)) {
+            if(count($conversation->users) == count($user_ids)) {
 
                 $argumentsFitting = true;
                 foreach($arguments as $column => $value){
